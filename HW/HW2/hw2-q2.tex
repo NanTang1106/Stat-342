@@ -1,0 +1,41 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,fullpage,graphicx}
+\usepackage{subfigure}
+\usepackage{amssymb}
+
+\begin{document}
+\subsection*{Q2-2}
+
+\begin{verbatim}
+iteration <- 10000
+lambda0 <- 1
+sample_size <- 20
+test_size <- 0.05
+critical_value <- abs(qnorm(test_size/2))
+count <- 0
+
+for (i in 1:iteration) {
+  sample <- rpois(sample_size, lambda0)
+  W <- (sum(sample) - sample_size * lambda0) / sqrt(sum(sample))
+  if (abs(W) > critical_value) {
+    count <- count + 1
+  } 
+}
+
+type_one_err <- count / iteration
+\end{verbatim}
+
+\begin{verbatim}
+ > print(type_one_err)
+[1] 0.0509
+\end{verbatim}
+
+\noindent Under the condition that $\lambda_0 = 1$, sample size $= 5 $, $X_1, X_2, ... X_{20}$ from $Poisson(\lambda_0)$ and $\alpha = 0.05$, I iterated the Wald test for ten thousand times. \\
+
+\noindent There are 509 cases when test statistic $W = \frac{\sum_{i=1}^{20} x_i - n \lambda_0}{\sqrt[]{\sum_{i=1}^{20} x_i}} $ is greater than $Z_{\frac{\alpha}{2}}$, i.e. rejected the null hypothesis. \\
+
+\noindent The type one error is $P_{H_0}($ reject the null $) = 0.0509$ which is close to the size $\alpha$.
+
+
+\end{document}

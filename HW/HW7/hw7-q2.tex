@@ -1,0 +1,48 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,fullpage,graphicx}
+\usepackage{subfigure}
+\let\hat\widehat
+\let\tilde\widetilde
+
+\begin{document}
+\subsection*{Q2}
+\noindent Let $p_1, p_2, p_3, p_4$ denote multinomial probabilities for each interval based on presumed model. $\sigma, \theta$ are unknown
+\begin{align*}
+p_1 &= \int_{-\infty}^{600} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{(x-\theta)^2}{2 \sigma^2}} dx \\
+&= \Phi (\frac{600 - \theta}{\sigma}) \text{, where } \Phi \text{ is cdf of standard normal} \\
+p_2 &= \Phi (\frac{1200 - \theta}{\sigma}) - \Phi (\frac{600 - \theta}{\sigma}) \\
+p_3 &= \Phi (\frac{1800 - \theta}{\sigma}) - \Phi (\frac{1200 - \theta}{\sigma}) \\
+p_4 &= 1 - \Phi (\frac{1800 - \theta}{\sigma}) \\
+\end{align*}
+\noindent Let $x_1, x_2, x_3, x_4$ denote number of observed data that fall in each interval. \\
+
+\noindent $x_1 = 9, x_2=20, x_3=7, x_4=2$
+
+\noindent Then the likelihood function based on observed data and presumed multinomial probability can be represented as 
+\begin{align*}
+L(\theta | x_1, x_2, x_3, x_4) &\propto \prod (p_i)^{x_i} \\
+&\propto \Phi (\frac{600 - \theta}{\sigma})^9 \times [\Phi (\frac{1200 - \theta}{\sigma}) - \Phi (\frac{600 - \theta}{\sigma})]^{20} \\
+& \times [\Phi (\frac{1800 - \theta}{\sigma}) - \Phi (\frac{1200 - \theta}{\sigma})]^{7} \times [1 - \Phi (\frac{1800 - \theta}{\sigma})]^{2}
+\end{align*}
+
+\noindent MLE of $\theta$ and $\sigma$ are 917.6799  477.9240. \\
+
+\noindent Based on MLE's, values in each interval are 9.618508 17.842061  9.306897  1.232534
+\begin{align*}
+D(x) &= \sum_{i=1}^{4} \frac{(x_i - np_i)^2}{np_i} \\
+&= 1.350458
+\end{align*}
+\noindent There are four categories and two unknown parameters, thus, degree of freedom is 1.
+\begin{align*}
+p-value &= P(\chi^2_1 \geq D(x)) \\
+&= 0.245198
+\end{align*}
+\noindent chi-square test p-value of observed data is 0.245198, therefore, under test size 0.05, observed data failed to provide significant evidence that normality model is incorrect.\\
+
+\noindent (R code in Appendix)
+
+
+
+
+\end{document}
